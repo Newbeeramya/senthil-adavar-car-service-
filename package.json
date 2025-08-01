@@ -1,0 +1,60 @@
+{
+  "name": "sri-senthil-andavar-motors",
+  "version": "1.0.0",
+  "description": "Professional car service center website for Sri Senthil Andavar Motors in Trichy",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "npm install",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "car-service",
+    "automotive",
+    "trichy",
+    "booking-system",
+    "responsive-website"
+  ],
+  "author": "Sri Senthil Andavar Motors",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "body-parser": "^1.20.2",
+    "nodemailer": "^6.9.4",
+    "dotenv": "^16.3.1",
+    "express-rate-limit": "^6.8.1",
+    "express-validator": "^7.0.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.4.3",
+    "multer": "^1.4.5-lts.1",
+    "compression": "^1.7.4",
+    "express-session": "^1.17.3",
+    "connect-mongo": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.2",
+    "eslint": "^8.46.0",
+    "prettier": "^3.0.1",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sri-senthil-andavar-motors/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sri-senthil-andavar-motors/website/issues"
+  },
+  "homepage": "https://srisenthilandavarmotors.com"
+}

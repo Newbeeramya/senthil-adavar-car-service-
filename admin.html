@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Sri Senthil Andavar Motors</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img src="images/logo.png" alt="Sri Senthil Andavar Motors" class="login-logo" onerror="this.style.display='none';">
+                <h2>Admin Panel</h2>
+                <p>Sri Senthil Andavar Motors</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="dashboard-container" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.png" alt="Sri Senthil Andavar Motors" class="sidebar-logo" onerror="this.style.display='none';">
+                <h3>Admin Panel</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-section="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a></li>
+                    <li><a href="#" class="nav-link" data-section="inquiries"><i class="fas fa-envelope"></i> Inquiries</a></li>
+                    <li><a href="#" class="nav-link" data-section="services"><i class="fas fa-tools"></i> Services</a></li>
+                    <li><a href="#" class="nav-link" data-section="customers"><i class="fas fa-users"></i> Customers</a></li>
+                    <li><a href="#" class="nav-link" data-section="analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="#" class="nav-link" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="admin-info">
+                        <span>Welcome, Admin</span>
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-bookings">0</h3>
+                            <p>Total Bookings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-inquiries">0</h3>
+                            <p>New Inquiries</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-customers">0</h3>
+                            <p>Total Customers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="monthly-revenue">₹0</h3>
+                            <p>Monthly Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <div class="widget">
+                        <h3>Recent Bookings</h3>
+                        <div id="recent-bookings" class="widget-content">
+                            <p class="no-data">No recent bookings</p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h3>Recent Inquiries</h3>
+                        <div id="recent-inquiries" class="widget-content">
+                            <p class="no-data">No recent inquiries</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings-section" class="content-section">
+                <div class="section-header">
+                    <h2>Manage Bookings</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="refresh-bookings"><i class="fas fa-sync"></i> Refresh</button>
+                        <button class="btn btn-secondary" id="export-bookings"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="bookings-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Service</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="no-data-row">
+                                <td colspan="7">No bookings found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Inquiries Section -->
+            <section id="inquiries-section" class="content-section">
+                <div class="section-header">
+                    <h2>Customer Inquiries</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="refresh-inquiries"><i class="fas fa-sync"></i> Refresh</button>
+                        <button class="btn btn-secondary" id="mark-all-read"><i class="fas fa-check"></i> Mark All Read</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="inquiries-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Service Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="no-data-row">
+                                <td colspan="7">No inquiries found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services-section" class="content-section">
+                <div class="section-header">
+                    <h2>Manage Services</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="add-service"><i class="fas fa-plus"></i> Add Service</button>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <h4>Rubber Polish Double Coating</h4>
+                        <p>Premium rubber polish with double coating</p>
+                        <div class="service-actions">
+                            <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <h4>Head Light & Windshield Glass Polish</h4>
+                        <p>Crystal clear visibility with professional glass polishing</p>
+                        <div class="service-actions">
+                            <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <h4>Interior Cleaning</h4>
+                        <p>Deep cleaning of car interiors including seats and dashboard</p>
+                        <div class="service-actions">
+                            <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers-section" class="content-section">
+                <div class="section-header">
+                    <h2>Customer Database</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="export-customers"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="customers-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Total Bookings</th>
+                                <th>Last Service</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="no-data-row">
+                                <td colspan="6">No customers found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="content-section">
+                <div class="section-header">
+                    <h2>Analytics & Reports</h2>
+                </div>
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Monthly Bookings</h3>
+                        <canvas id="bookings-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Service Popularity</h3>
+                        <canvas id="services-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="content-section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Business Information</h3>
+                        <form id="business-form">
+                            <div class="form-group">
+                                <label for="business-name">Business Name</label>
+                                <input type="text" id="business-name" value="Sri Senthil Andavar Motors">
+                            </div>
+                            <div class="form-group">
+                                <label for="business-phone">Phone Numbers</label>
+                                <input type="text" id="business-phone" value="76399 80839, 86678 75755">
+                            </div>
+                            <div class="form-group">
+                                <label for="business-email">Email</label>
+                                <input type="email" id="business-email" value="nethransri2010@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="business-address">Address</label>
+                                <textarea id="business-address">No:6, Karur Bye Pass Road, Opp Kalaignar Arivalayam, Mala Chinthamani, Trichy - 620 002</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Pricing Settings</h3>
+                        <form id="pricing-form">
+                            <div class="form-group">
+                                <label for="comprehensive-price">Comprehensive Package</label>
+                                <input type="number" id="comprehensive-price" value="4800">
+                            </div>
+                            <div class="form-group">
+                                <label for="small-vehicle-price">Small Vehicle Service</label>
+                                <input type="number" id="small-vehicle-price" value="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="large-vehicle-price">Large Vehicle Service</label>
+                                <input type="number" id="large-vehicle-price" value="1300">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Pricing</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Booking Details</h2>
+            <div id="booking-details"></div>
+        </div>
+    </div>
+
+    <div id="inquiry-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Inquiry Details</h2>
+            <div id="inquiry-details"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/admin.js"></script>
+</body>
+</html>
